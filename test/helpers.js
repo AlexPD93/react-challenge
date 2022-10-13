@@ -1,19 +1,22 @@
 import { JSDOM } from "jsdom";
+import { createElement as h, StrictMode } from "react";
+import ReactDOM from "react-dom/client";
+import { act } from "react-dom/test-utils";
 
-async function load(file) {
-  let dom = await JSDOM.fromFile(file, {
-    runScripts: "dangerously",
-    resources: "usable",
-  });
-  return new Promise((resolve) => {
-    dom.window.addEventListener("load", () => {
-      dom.$ = (s) => dom.window.document.querySelector(s);
-      resolve(dom);
+let html = `<!doctype html>
+<body><div id="root"></div></body>`;
+
+export function load() {
+  let dom = new JSDOM(html);
+  dom.$ = (s) => dom.window.document.querySelector(s);
+  function render(Comp) {
+    globalThis.window = dom.window;
+    globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+    const el = h(StrictMode, { children: h(Comp) });
+    act(() => {
+      ReactDOM.createRoot(dom.$("#root")).render(el);
     });
-  });
+    return dom;
+  }
+  return render;
 }
-
-const path = `dist/index.html`;
-const loader = load(path);
-
-module.exports = { loader };
