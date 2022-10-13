@@ -1,31 +1,18 @@
 // eslint-disable-next-line import/no-unresolved
 import { describe as test, after } from "node:test";
 import assert from "node:assert/strict";
-import { createElement } from "react";
-import { component, render, unmount, $, window } from "./helpers.js";
+import { component, render, createElement, prettyDOM, tag } from "./helpers.js";
 
 test("Greeting component renders based on `name` prop", async () => {
+  const Greeting = await component("Greeting");
+  const el = createElement(Greeting, { name: "oli" });
+  const { unmount, container } = render(el);
   after(unmount);
 
-  // eslint-disable-next-line import/no-unresolved -- the _test dir is generated on the fly when tests run
-  const Greeting = await component("Greeting");
-
-  render(createElement(Greeting, { name: "oli" }));
-
-  const p = $("p");
-  assert.ok(
-    p instanceof window.HTMLElement,
-    `Greeting should render a <p>, but got:
-  
-      ${p}
-    `
-  );
+  const p = tag(container, "p", window.HTMLParagraphElement);
   assert.match(
     p.textContent,
     /hello oli/i,
-    `<Greeting name="oli" /> should render <p>hello oli</p>, but got:
-  
-      ${p.outerHTML}
-    `
+    `<Greeting name="oli" /> should render <p>hello oli</p>, but got:\n${prettyDOM()}`
   );
 });

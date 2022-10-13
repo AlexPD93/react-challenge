@@ -1,35 +1,15 @@
-import { JSDOM } from "jsdom";
-import { createElement as h, StrictMode } from "react";
-import ReactDOM from "react-dom/client";
-import { act } from "react-dom/test-utils";
+// eslint-disable-next-line import/no-unresolved
+import "global-jsdom/register";
 import assert from "node:assert/strict";
+import { prettyDOM } from "@testing-library/react/pure.js";
 
-let html = `<!doctype html>
-<body><div id="root"></div></body>`;
-
-let dom = new JSDOM(html);
-globalThis.window = dom.window;
-
-export let window = dom.window;
-export let $ = (s) => window.document.querySelector(s);
-
-globalThis.IS_REACT_ACT_ENVIRONMENT = true;
-let root = ReactDOM.createRoot($("#root"));
-
-export function unmount() {
-  act(() => root.unmount());
-}
-
-export function render(children) {
-  const el = h(StrictMode, { children });
-  act(() => {
-    root.render(el);
-  });
-}
-
-export function serialize() {
-  return dom.serialize();
-}
+export { createElement } from "react";
+export {
+  render,
+  screen,
+  fireEvent,
+  prettyDOM,
+} from "@testing-library/react/pure.js";
 
 export async function component(name) {
   const module = await import(`../_test/${name}.js`).catch(() => {
@@ -44,4 +24,13 @@ export async function component(name) {
   `
   );
   return module.default;
+}
+
+export function tag(container, tag, constructor) {
+  const el = container.querySelector(tag);
+  assert.ok(
+    el instanceof constructor,
+    `Should render a <${tag}>, but got:\n${prettyDOM()}`
+  );
+  return el;
 }
