@@ -19,8 +19,8 @@ export function unmount() {
   act(() => root.unmount());
 }
 
-export function render(Comp) {
-  const el = h(StrictMode, { children: h(Comp) });
+export function render(children) {
+  const el = h(StrictMode, { children });
   act(() => {
     root.render(el);
   });
