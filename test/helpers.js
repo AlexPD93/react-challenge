@@ -2,6 +2,7 @@ import { JSDOM } from "jsdom";
 import { createElement as h, StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { act } from "react-dom/test-utils";
+import assert from "node:assert/strict";
 
 let html = `<!doctype html>
 <body><div id="root"></div></body>`;
@@ -28,4 +29,19 @@ export function render(children) {
 
 export function serialize() {
   return dom.serialize();
+}
+
+export async function component(name) {
+  const module = await import(`../_test/${name}.js`).catch(() => {
+    assert.fail(`Could not find ${name}.jsx file`);
+  });
+  assert.equal(
+    typeof module.default,
+    "function",
+    `Default export from ${name}.jsx should be a function, but got:
+    
+    ${module.default}
+  `
+  );
+  return module.default;
 }
