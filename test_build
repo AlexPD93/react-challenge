@@ -1,0 +1,11 @@
+#! /usr/bin/env sh
+
+# This script quickly transpiles any .jsx files in the specified folder
+# We need to do this before running tests as Node cannot parse JSX syntax
+# It temporarily outputs regular .js files to the _test/ directory
+# Tests can import from there instead—this is v hacky
+
+npx esbuild ${TEST_DIR:-challenge}/*.jsx \
+  --jsx=automatic \
+  --log-level=error \
+  --outdir=_test
