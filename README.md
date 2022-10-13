@@ -22,4 +22,6 @@ You can import and render the component you're working on inside `challenge/App.
 
 Create a new file `challenge/Greeting.jsx` that default-exports a component called `Greeting`. The component should take a prop called `name` and use it to render a `<p>` element that greets the user. E.g. `<Greeting name="oli">` should render `<p>Hello oli</p`>.
 
-Import and render this component inside the `App` component in `challenge/App.jsx` to see it appear on the page.
+## Challenge 2: using state
+
+Create a new file `challenge/Shouter.jsx` that default-exports a component called `Shouter`. The component should render an `<input>` element and an `<output>` element. Whatever the user types into the input should appear in the output, but transformed into uppercase. E.g. after the user types "hello world" the output should be `<output>HELLO WORLD</output>`.
