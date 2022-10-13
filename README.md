@@ -18,6 +18,6 @@ Make sure you read test failures carefully—the output can be noisy but the err
 
 ## Challenge 1: creating components
 
-Create a new component called `Greeting` in `App.jsx`. It should take a prop called `name` and use it to render a `<p>` element that greets the user. E.g. if passed a `name` of "oli" it should render `<p>hello oli</p>`.
+Create a new file `challenge/Greeting.jsx` that default-exports a component called `Greeting`. The component should take a prop called `name` and use it to render a `<p>` element that greets the user. E.g. `<Greeting name="oli">` should render `<p>Hello oli</p`>.
 
-Render this component inside the `<main>` in the `App` component.
+Import and render this component inside the `App` component in `challenge/App.jsx` to see it appear on the page.

@@ -1,29 +1,43 @@
 // eslint-disable-next-line import/no-unresolved
 import { describe as test, after } from "node:test";
 import assert from "node:assert/strict";
-// eslint-disable-next-line import/no-unresolved -- the _test dir is generated on the fly when tests run
-import App from "../_test/App.js";
+import { createElement } from "react";
 import { render, unmount, $, window } from "./helpers.js";
 
-test("top-level passes", async () => {
+test("Greeting component renders based on `name` prop", async () => {
   after(unmount);
 
-  render(App);
+  // eslint-disable-next-line import/no-unresolved -- the _test dir is generated on the fly when tests run
+  const { default: Greeting } = await import("../_test/Greeting.js").catch(
+    () => {
+      assert.fail("Could not find Greeting.jsx file");
+    }
+  );
+  assert.equal(
+    typeof Greeting,
+    "function",
+    `Default export from Greeting.jsx should be a function, but got:
+    
+    ${Greeting}
+  `
+  );
 
-  const p = $("main p");
+  render(createElement(Greeting, { name: "oli" }));
+
+  const p = $("p");
   assert.ok(
     p instanceof window.HTMLElement,
-    `Should be a <p> inside of <main>, but got:
-
-    ${p}
-  `
+    `Greeting should render a <p>, but got:
+  
+      ${p}
+    `
   );
   assert.match(
     p.textContent,
-    /hello/i,
-    `<p> should contain 'hello' message, but got:
-
-    ${p.outerHTML}
-  `
+    /hello oli/i,
+    `<Greeting name="oli" /> should render <p>hello oli</p>, but got:
+  
+      ${p.outerHTML}
+    `
   );
 });

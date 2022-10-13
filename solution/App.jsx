@@ -1,7 +1,9 @@
+import Greeting from "./Greeting.jsx";
+
 function App() {
   return (
     <main>
-      <p>hello</p>
+      <Greeting name="oli" />
     </main>
   );
 }
