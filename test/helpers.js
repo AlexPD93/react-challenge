@@ -6,17 +6,26 @@ import { act } from "react-dom/test-utils";
 let html = `<!doctype html>
 <body><div id="root"></div></body>`;
 
-export function load() {
-  let dom = new JSDOM(html);
-  dom.$ = (s) => dom.window.document.querySelector(s);
-  function render(Comp) {
-    globalThis.window = dom.window;
-    globalThis.IS_REACT_ACT_ENVIRONMENT = true;
-    const el = h(StrictMode, { children: h(Comp) });
-    act(() => {
-      ReactDOM.createRoot(dom.$("#root")).render(el);
-    });
-    return dom;
-  }
-  return render;
+let dom = new JSDOM(html);
+globalThis.window = dom.window;
+
+export let window = dom.window;
+export let $ = (s) => window.document.querySelector(s);
+
+globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+let root = ReactDOM.createRoot($("#root"));
+
+export function unmount() {
+  act(() => root.unmount());
+}
+
+export function render(Comp) {
+  const el = h(StrictMode, { children: h(Comp) });
+  act(() => {
+    root.render(el);
+  });
+}
+
+export function serialize() {
+  return dom.serialize();
 }

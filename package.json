@@ -4,8 +4,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test-build": "zsh -c 'esbuild challenge/**/*.jsx --jsx=automatic --log-level=error --outdir=_test'",
-    "test": "npm run test-build &&  && node -r esbuild-register --no-warnings --test; rm -rf _test",
+    "test-build": "zsh -c 'esbuild ${TEST_DIR:-challenge}/**/*.jsx --jsx=automatic --log-level=error --outdir=_test'",
+    "test": "npm run test-build &&  && node --no-warnings --test; rm -rf _test",
     "test:1": "npm run test-build && node --no-warnings test/1.test.js; rm -rf _test"
   },
   "dependencies": {
