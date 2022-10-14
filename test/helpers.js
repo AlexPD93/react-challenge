@@ -11,10 +11,11 @@ export {
   prettyDOM,
 } from "@testing-library/react/pure.js";
 
+const DIR = process.env.DIR;
+
 export async function component(name) {
-  const module = await import(`../_test/${name}.js`).catch(() => {
-    assert.fail(`Could not find ${name}.jsx file`);
-  });
+  const path = `../${DIR}/${name}.jsx`;
+  const module = await import(path).catch((e) => assert.fail(e.message));
   assert.equal(
     typeof module.default,
     "function",

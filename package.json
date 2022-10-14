@@ -14,7 +14,7 @@
     "@vitejs/plugin-react": "^2.1.0",
     "esbuild": "^0.15.10",
     "eslint": "^8.25.0",
-    "eslint-config-react-minimal": "^3.0.0",
+    "eslint-config-react-minimal": "^3.1.0",
     "global-jsdom": "^8.6.0",
     "jsdom": "^20.0.1",
     "vite": "^3.1.0"
@@ -23,10 +23,7 @@
     "extends": [
       "eslint:recommended",
       "eslint-config-react-minimal"
-    ],
-    "env": {
-      "es2021": true
-    }
+    ]
   },
   "volta": {
     "node": "18.10.0"
