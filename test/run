@@ -7,4 +7,4 @@ export DIR="${2:-challenge}"
 [ $# -eq 0 ] && { echo "Please pass a challenge number: e.g. ./tests 1"; exit 1; }
 
 # --experimental-loader allows importing of .jsx files
-node --no-warnings --experimental-loader ./test/jsx-loader.js "$FILE";
+node --no-warnings --test-reporter spec --experimental-loader ./test/jsx-loader.js "$FILE";
