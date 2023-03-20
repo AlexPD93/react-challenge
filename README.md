@@ -12,7 +12,7 @@ Make sure you have Git and Node (v18) installed.
 
 ## Checking your work
 
-Each challenge has associated unit tests. You can run all the tests with `npm test`, or each challenge's tests with `npm test tests/1.test.js` etc.
+Each challenge has associated unit tests. You can run each challenge's tests with `npm run test:1`, `npm run test:2` etc.
 
 Make sure you read test failures carefully—the output can be noisy but the error message should provide useful information to help you.
 
