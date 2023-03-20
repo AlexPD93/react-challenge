@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-unresolved
-import { describe as test, after } from "node:test";
+import test from "node:test";
 import assert from "node:assert/strict";
 import {
   render,
@@ -10,7 +10,7 @@ import {
   fireEvent,
 } from "./helpers.js";
 
-test("MouseTracker component converts user input to upper case", async () => {
+test("MouseTracker component converts user input to upper case", async (t) => {
   const _addEventListener = window.addEventListener;
   let listeners = 0;
   window.addEventListener = (type, cb) => {
@@ -51,7 +51,7 @@ test("MouseTracker component converts user input to upper case", async () => {
     `Window event listener should be removed after MouseTracker is unmounted. Did you clean up?`
   );
 
-  after(() => {
+  t.after(() => {
     window.addEventListener = _addEventListener;
     window.removeEventListener = _removeEventListener;
   });

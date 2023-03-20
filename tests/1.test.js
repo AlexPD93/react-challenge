@@ -1,13 +1,13 @@
 // eslint-disable-next-line import/no-unresolved
-import { describe as test, after } from "node:test";
+import test from "node:test";
 import assert from "node:assert/strict";
 import { component, render, createElement, prettyDOM, tag } from "./helpers.js";
 
-test("Greeting component renders based on `name` prop", async () => {
+test("Greeting component renders based on `name` prop", async (t) => {
   const Greeting = await component("Greeting");
   const el = createElement(Greeting, { name: "oli" });
   const { unmount, container } = render(el);
-  after(unmount);
+  t.after(unmount);
 
   const p = tag(container, "p", window.HTMLParagraphElement);
   assert.match(
