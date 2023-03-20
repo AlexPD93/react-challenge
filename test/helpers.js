@@ -11,7 +11,7 @@ export {
   prettyDOM,
 } from "@testing-library/react/pure.js";
 
-const DIR = process.env.DIR;
+const DIR = process.env.DIR || "challenge";
 
 export async function component(name) {
   const path = `../${DIR}/${name}.jsx`;
