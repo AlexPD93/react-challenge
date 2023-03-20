@@ -4,7 +4,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node --test --no-warnings --test-reporter spec --experimental-loader ./test/jsx-loader.js"
+    "test": "node --test --no-warnings --test-reporter spec --experimental-loader ./tests/jsx-loader.js"
   },
   "dependencies": {
     "react": "^18.2.0",
