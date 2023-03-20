@@ -11,19 +11,8 @@ import {
 } from "./helpers.js";
 
 test("MouseTracker component converts user input to upper case", async (t) => {
-  const _addEventListener = window.addEventListener;
-  let listeners = 0;
-  window.addEventListener = (type, cb) => {
-    listeners++;
-    _addEventListener(type, cb);
-  };
-
-  const _removeEventListener = window.removeEventListener;
-  let removed = false;
-  window.removeEventListener = (type, cb) => {
-    removed = true;
-    _removeEventListener(type, cb);
-  };
+  t.mock.method(window, "addEventListener");
+  t.mock.method(window, "removeEventListener");
 
   const MouseTracker = await component("MouseTracker");
   const { unmount, container } = render(createElement(MouseTracker));
@@ -39,20 +28,16 @@ test("MouseTracker component converts user input to upper case", async (t) => {
 
   fireEvent.mouseMove(document.body, { clientX: 27, clientY: 14 });
   assert.equal(
-    listeners,
+    window.addEventListener.mock.calls.length,
     1,
     `MouseTracker should only add 1 event listener to the window`
   );
 
   unmount();
   fireEvent.mouseMove(document.body, { clientX: 27, clientY: 14 });
-  assert.ok(
-    removed,
+  assert.equal(
+    window.removeEventListener.mock.calls.length,
+    1,
     `Window event listener should be removed after MouseTracker is unmounted. Did you clean up?`
   );
-
-  t.after(() => {
-    window.addEventListener = _addEventListener;
-    window.removeEventListener = _removeEventListener;
-  });
 });
