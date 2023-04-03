@@ -26,7 +26,10 @@
     "extends": [
       "eslint:recommended",
       "eslint-config-react-minimal"
-    ]
+    ],
+    "env": {
+      "es2022": true
+    }
   },
   "volta": {
     "node": "18.15.0"
