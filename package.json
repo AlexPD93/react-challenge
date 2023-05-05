@@ -4,9 +4,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test:1": "node --no-warnings --test-reporter spec --experimental-loader ./tests/jsx-loader.js tests/1.test.js",
-    "test:2": "node --no-warnings --test-reporter spec --experimental-loader ./tests/jsx-loader.js tests/2.test.js",
-    "test:3": "node --no-warnings --test-reporter spec --experimental-loader ./tests/jsx-loader.js tests/3.test.js"
+    "test:1": "node --experimental-loader ./tests/jsx-loader.js tests/1.test.js",
+    "test:2": "node --experimental-loader ./tests/jsx-loader.js tests/2.test.js",
+    "test:3": "node --experimental-loader ./tests/jsx-loader.js tests/3.test.js"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -31,6 +31,6 @@
     }
   },
   "volta": {
-    "node": "18.15.0"
+    "node": "18.16.0"
   }
 }
