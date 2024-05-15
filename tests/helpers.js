@@ -11,16 +11,16 @@ globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 const DIR = process.env.DIR || "challenge";
 
 export async function component(name) {
-  const path = `../${DIR}/${name}.jsx`;
-  const module = await import(path);
-  assert.equal(
-    typeof module.default,
-    "function",
-    `Default export from ${name}.jsx should be a function, but got:
+	const path = `../${DIR}/${name}.tsx`;
+	const module = await import(path);
+	assert.equal(
+		typeof module.default,
+		"function",
+		`Default export from ${name}.jsx should be a function, but got:
     ${module.default}
   `
-  );
-  return module.default;
+	);
+	return module.default;
 }
 
 /**
@@ -31,11 +31,11 @@ export async function component(name) {
  */
 
 export function render(element) {
-  const container = document.createElement("div");
-  document.body.replaceChildren(container);
-  let root = ReactDOM.createRoot(container);
-  act(() => root.render(element));
-  return () => act(() => root.unmount());
+	const container = document.createElement("div");
+	document.body.replaceChildren(container);
+	let root = ReactDOM.createRoot(container);
+	act(() => root.render(element));
+	return () => act(() => root.unmount());
 }
 
 /**
@@ -46,7 +46,7 @@ export function render(element) {
  */
 
 export function event(name, element, data) {
-  act(() => Simulate[name](element, data));
+	act(() => Simulate[name](element, data));
 }
 
 /**
@@ -56,17 +56,17 @@ export function event(name, element, data) {
  */
 
 export function debug(element = document.body) {
-  return pretty(element) + "\n";
+	return pretty(element) + "\n";
 }
 
 function pretty(el, depth = 0) {
-  let indent = "  ".repeat(depth);
-  let name = tag(el.tagName.toLowerCase());
-  let open = "<" + name + attrs(el) + ">";
-  let close = el.childNodes.length ? `</${name}>` : "";
-  if (!el.childElementCount) return indent + open + el.textContent + close;
-  let kids = [...el.children].map((e) => pretty(e, depth + 1)).join("\n");
-  return indent + open + "\n" + kids + "\n" + indent + close;
+	let indent = "  ".repeat(depth);
+	let name = tag(el.tagName.toLowerCase());
+	let open = "<" + name + attrs(el) + ">";
+	let close = el.childNodes.length ? `</${name}>` : "";
+	if (!el.childElementCount) return indent + open + el.textContent + close;
+	let kids = [...el.children].map((e) => pretty(e, depth + 1)).join("\n");
+	return indent + open + "\n" + kids + "\n" + indent + close;
 }
 
 let attr = ({ name, value }) => ` ${key(name)}="${val(value)}"`;
