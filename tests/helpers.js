@@ -16,7 +16,7 @@ export async function component(name) {
 	assert.equal(
 		typeof module.default,
 		"function",
-		`Default export from ${name}.jsx should be a function, but got:
+		`Default export from ${name}.tsx should be a function, but got:
     ${module.default}
   `
 	);
