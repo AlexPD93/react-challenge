@@ -4,7 +4,7 @@ Practice using React to create dynamic apps in the browser.
 
 ## Setup
 
-Make sure you have Git and Node (v18) installed.
+Make sure you have Git and Node (v20) installed.
 
 1. [Use this template](https://github.com/foundersandcoders/react-challenge/generate), clone your copy, `cd` into it
 1. Run `npm install` to install all the dependencies
